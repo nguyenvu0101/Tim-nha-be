@@ -65,6 +65,7 @@ const authController = {
         res.status(404).json('Incorrect password')
       }
       if (user && validPassword) {
+        
         const accessToken = authController.generateAccessToken(user)
 
         const refreshToken = authController.generateRefreshToken(user)
