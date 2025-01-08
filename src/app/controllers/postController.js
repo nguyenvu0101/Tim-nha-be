@@ -24,5 +24,13 @@ const createPost = async (req, res) => {
     })
   }
 }
-
-module.exports = { createPost }
+const listPost = async (req, res) => {
+  try {
+    const posts = await Post.find(); // Tìm tất cả bài đăng
+    res.status(200).json(posts); // Trả về dữ liệu dưới dạng JSON
+  } catch (error) {
+    console.error('Lỗi khi lấy dữ liệu:', error.message);
+    res.status(500).json({ message: 'Lỗi server!' });
+  }
+};
+module.exports = { createPost , listPost}

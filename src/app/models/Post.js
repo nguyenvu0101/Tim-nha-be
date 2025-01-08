@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const postSchema = new mongoose.Schema({
+  userId : String ,
   province: { type: String, required: true },
   district: { type: String, required: true },
   address: { type: String, required: true },
