@@ -33,4 +33,50 @@ const listPost = async (req, res) => {
     res.status(500).json({ message: 'Lỗi server!' });
   }
 };
-module.exports = { createPost , listPost}
+const filterPricePost = async (req, res) => {
+  const { minPrice = 0, maxPrice = Infinity } = req.query
+
+  try {
+    // Lấy bài đăng theo khoảng giá
+    const posts = await Post.find({
+      price: { $gte: parseFloat(minPrice), $lte: parseFloat(maxPrice) },
+    })
+    res.json(posts)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+const filterAreaPost = async (req, res) => {
+  const { minArea = 0, maxArea = Infinity } = req.query
+
+  try {
+    // Lấy bài đăng theo khoảng giá
+    const posts = await Post.find({
+      area: { $gte: parseFloat(minArea), $lte: parseFloat(maxArea) },
+    })
+    res.json(posts)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+const filterLocationPost = async (req, res) => {
+  try {
+    const { province, district } = req.query
+    const query = {}
+    if (province) query.province = province
+    if (district) query.district = district
+
+    const posts = await Post.find(query)
+    res.json(posts)
+  } catch (error) {
+    res.status(500).json({ error: 'Lỗi khi lọc bài đăng' })
+  }
+}
+
+module.exports = {
+  createPost,
+  listPost,
+  filterPricePost,
+  filterAreaPost,
+  filterLocationPost,
+}
