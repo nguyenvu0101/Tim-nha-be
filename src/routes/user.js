@@ -15,7 +15,7 @@ router.get('/info/:id', verifyTokenAndUserAuthorization, userController.getUser)
 router.put('/update/:id', verifyTokenAndUserAuthorization, userController.updateUser)
 //DELETE USER
 router.delete(
-  '/:id',
+  '/delete/:id',
   verifyTokenAndUserAuthorization,
   userController.deleteUser
 )

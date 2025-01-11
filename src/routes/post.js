@@ -5,7 +5,9 @@ const {
   filterPricePost,
   filterAreaPost,
   filterLocationPost,
+  listUserPost,
 } = require('../app/controllers/postController')
+
 const router = express.Router()
 
 router.get('/list', listPost)

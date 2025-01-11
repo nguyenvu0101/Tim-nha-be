@@ -31,24 +31,44 @@ const userController = {
   
 
   updateUser: async (req, res) => {
-    const hashPassword = async (password) => {
-      const saltRounds = 10;  // Số vòng salt (càng cao, càng bảo mật nhưng chậm hơn)
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
-      return hashedPassword;
-    };
-    try {
-      // Nếu mật khẩu được cung cấp trong body, mã hóa nó
-      if (req.body.password) {
-        req.body.password = await hashPassword(req.body.password);  // Mã hóa mật khẩu
-      }
+     try {
+       const userId = req.user.id // Lấy ID người dùng từ middleware authenticate
+       const { currentPassword, newPassword } = req.body
 
-      // Cập nhật thông tin người dùng, bao gồm cả mật khẩu đã mã hóa nếu có
-      await User.findByIdAndUpdate(req.params.id, req.body);
+       // Kiểm tra nếu thiếu trường nào
+       if (!currentPassword || !newPassword) {
+         return res
+           .status(400)
+           .json({ message: 'Vui lòng nhập đầy đủ thông tin.' })
+       }
 
-      res.status(200).json('User updated');
-    } catch (err) {
-      res.status(500).json(err);
-    }
+       // Lấy thông tin người dùng từ cơ sở dữ liệu
+       const user = await User.findById(userId)
+       if (!user) {
+         return res.status(404).json({ message: 'Người dùng không tồn tại.' })
+       }
+
+       // Kiểm tra mật khẩu hiện tại
+       const isMatch = await bcrypt.compare(currentPassword, user.password)
+       if (!isMatch) {
+         return res
+           .status(400)
+           .json({ message: 'Mật khẩu hiện tại không đúng.' })
+       }
+
+       // Mã hóa mật khẩu mới
+       const salt = await bcrypt.genSalt(10)
+       const hashedPassword = await bcrypt.hash(newPassword, salt)
+
+       // Cập nhật mật khẩu trong cơ sở dữ liệu
+       user.password = hashedPassword
+       await user.save()
+
+       res.status(200).json({ message: 'Đổi mật khẩu thành công!' })
+     } catch (error) {
+       console.error('Lỗi đổi mật khẩu:', error)
+       res.status(500).json({ message: 'Có lỗi xảy ra, vui lòng thử lại.' })
+     }
   }
 }
 

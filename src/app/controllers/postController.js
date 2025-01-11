@@ -33,6 +33,7 @@ const listPost = async (req, res) => {
     res.status(500).json({ message: 'Lỗi server!' });
   }
 };
+
 const filterPricePost = async (req, res) => {
   const { minPrice = 0, maxPrice = Infinity } = req.query
 
