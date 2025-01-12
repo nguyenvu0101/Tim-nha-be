@@ -26,13 +26,23 @@ const createPost = async (req, res) => {
 }
 const listPost = async (req, res) => {
   try {
-    const posts = await Post.find(); // Tìm tất cả bài đăng
-    res.status(200).json(posts); // Trả về dữ liệu dưới dạng JSON
+    const posts = await Post.find() // Tìm tất cả bài đăng
+    res.status(200).json(posts) // Trả về dữ liệu dưới dạng JSON
   } catch (error) {
-    console.error('Lỗi khi lấy dữ liệu:', error.message);
-    res.status(500).json({ message: 'Lỗi server!' });
+    console.error('Lỗi khi lấy dữ liệu:', error.message)
+    res.status(500).json({ message: 'Lỗi server!' })
   }
-};
+}
+
+const deletePost = async (req, res) => {
+  try {
+    const posts = await Post.findByIdAndDelete(req.params.idpost) // Tìm tất cả bài đăng
+    res.status(200).json(posts) // Trả về dữ liệu dưới dạng JSON
+  } catch (error) {
+    console.error('Lỗi khi lấy dữ liệu:', error.message)
+    res.status(500).json({ message: 'Lỗi server!' })
+  }
+}
 
 const filterPricePost = async (req, res) => {
   const { minPrice = 0, maxPrice = Infinity } = req.query
@@ -73,8 +83,33 @@ const filterLocationPost = async (req, res) => {
     res.status(500).json({ error: 'Lỗi khi lọc bài đăng' })
   }
 }
+const viewPost = async (req, res) => {
+  try {
+    const posts = await Post.findById(req.params.postid) // Tìm tất cả bài đăng
+    res.status(200).json(posts) // Trả về dữ liệu dưới dạng JSON
+  } catch (error) {
+    console.error('Lỗi khi lấy dữ liệu:', error.message)
+    res.status(500).json({ message: 'Lỗi server!' })
+  }
+}
+const editPost = async (req, res) => {
+  const updateData = req.body
+  try {
+    const posts = await Post.findByIdAndUpdate(req.params.postid, updateData, {
+      new: true,
+    }) // Tìm tất cả bài đăng
+    res.status(200).json(posts)
+    console.log('abc') // Trả về dữ liệu dưới dạng JSON
+  } catch (error) {
+    console.error('Lỗi khi lấy dữ liệu:', error.message)
+    res.status(500).json({ message: 'Lỗi server!' })
+  }
+}
 
 module.exports = {
+  editPost,
+  viewPost,
+  deletePost,
   createPost,
   listPost,
   filterPricePost,
