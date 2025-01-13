@@ -1,6 +1,7 @@
 const express = require('express')
 const {
   editPost,
+  viewEditPost,
   viewPost,
   deletePost,
   createPost,
@@ -17,12 +18,13 @@ const {
 const router = express.Router()
 
 router.put('/edit/:id/:postid', verifyTokenAndUserAuthorization, editPost)
-router.get('/view/:id/:postid', verifyTokenAndUserAuthorization, viewPost)
+router.get('/view/:postid', viewPost)
+router.get('/view/:id/:postid', verifyTokenAndUserAuthorization ,viewEditPost)
 router.delete('/delete/:id/:idpost',verifyTokenAndUserAuthorization , deletePost)
 router.get('/list', listPost)
 router.get('/filter-price-post', filterPricePost)
 router.get('/filter-area-post', filterAreaPost)
 router.get('/filter-location-post', filterLocationPost)
-router.post('/', createPost)
+router.post('/:id', verifyTokenAndUserAuthorization , createPost)
 
 module.exports = router

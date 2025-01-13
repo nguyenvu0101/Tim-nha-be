@@ -76,7 +76,8 @@ const filterLocationPost = async (req, res) => {
     const query = {}
     if (province) query.province = province
     if (district) query.district = district
-
+    console.log(province)
+    console.log(district)
     const posts = await Post.find(query)
     res.json(posts)
   } catch (error) {
@@ -92,6 +93,15 @@ const viewPost = async (req, res) => {
     res.status(500).json({ message: 'Lỗi server!' })
   }
 }
+const viewEditPost = async (req, res) => {
+  try {
+    const posts = await Post.findById(req.params.postid) // Tìm tất cả bài đăng
+    res.status(200).json(posts) // Trả về dữ liệu dưới dạng JSON
+  } catch (error) {
+    console.error('Lỗi khi lấy dữ liệu:', error.message)
+    res.status(500).json({ message: 'Lỗi server!' })
+  }
+}
 const editPost = async (req, res) => {
   const updateData = req.body
   try {
@@ -99,7 +109,7 @@ const editPost = async (req, res) => {
       new: true,
     }) // Tìm tất cả bài đăng
     res.status(200).json(posts)
-    console.log('abc') // Trả về dữ liệu dưới dạng JSON
+    console.log(updateData); // Trả về dữ liệu dưới dạng JSON
   } catch (error) {
     console.error('Lỗi khi lấy dữ liệu:', error.message)
     res.status(500).json({ message: 'Lỗi server!' })
@@ -108,6 +118,7 @@ const editPost = async (req, res) => {
 
 module.exports = {
   editPost,
+  viewEditPost,
   viewPost,
   deletePost,
   createPost,
