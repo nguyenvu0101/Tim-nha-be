@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const postSchema = new mongoose.Schema({
-  userId : String ,
+  userId: String,
   province: { type: String, required: true },
   district: { type: String, required: true },
   address: { type: String, required: true },
@@ -10,6 +10,7 @@ const postSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   numBedrooms: { type: Number, required: true },
   numBathrooms: { type: Number, required: true },
+  contact: { type: String, required: true },
   amenities: {
     dieu_hoa: { type: Boolean, default: false },
     nong_lanh: { type: Boolean, default: false },
