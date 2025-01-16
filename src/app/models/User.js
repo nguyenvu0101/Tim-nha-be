@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    membership: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 )

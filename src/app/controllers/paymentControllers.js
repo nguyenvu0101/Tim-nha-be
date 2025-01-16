@@ -62,6 +62,7 @@ exports.createPayment = (req, res) => {
     momoRes.on('end', () => {
       res.json(JSON.parse(data))
     })
+
   })
 
   momoReq.on('error', (error) => {
@@ -71,4 +72,22 @@ exports.createPayment = (req, res) => {
 
   momoReq.write(requestBody)
   momoReq.end()
+
+  
+}
+// IPN handler: Nhận thông báo từ MoMo khi thanh toán thành công
+exports.handleIpn = (req, res) => {
+  const { orderId, resultCode, message, extraData } = req.body
+
+  // Kiểm tra trạng thái thanh toán từ MoMo
+  if (resultCode === '0') {
+    // Thanh toán thành công
+    console.log(`Thanh toán thành công cho orderId: ${orderId}, message: ${message}`)
+  } else {
+    // Thanh toán thất bại
+    console.log(`Thanh toán thất bại cho orderId: ${orderId}, message: ${message}`)
+  }
+
+  // Xác nhận với MoMo đã nhận được IPN
+  res.status(200).send('OK')
 }
