@@ -29,25 +29,30 @@ const userController = {
     }
   },
   
-membershipUser : async (req, res) => {
-  const { userId, membershipType } = req.body;
+// membershipUser : async (req, res) => {
+//   const { userId, membershipLevel } = req.body;
+//   console.log(req.body);
+//   try {
+//     const user = await User.findById(userId);
 
-  try {
-    const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ message: 'Người dùng không tồn tại' });
+//     }
 
-    if (!user) {
-      return res.status(404).json({ message: 'Người dùng không tồn tại' });
-    }
+//     // Cập nhật gói thành viên
+//     user.membership = membershipLevel
+//     await user.save();
 
-    // Cập nhật gói thành viên
-    user.membership = membershipType;
-    await user.save();
-
-    res.status(200).json({ message: 'Cập nhật gói thành viên thành công', membership: membershipType });
-  } catch (error) {
-    res.status(500).json({ message: 'Lỗi khi cập nhật thông tin người dùng', error });
-  }
-  },
+//     res
+//       .status(200)
+//       .json({
+//         message: 'Cập nhật gói thành viên thành công',
+//         membership: membershipLevel,
+//       })
+//   } catch (error) {
+//     res.status(500).json({ message: 'Lỗi khi cập nhật thông tin người dùng', error });
+//   }
+//   },
   updateUser: async (req, res) => {
      try {
        const userId = req.user.id // Lấy ID người dùng từ middleware authenticate

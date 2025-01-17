@@ -6,7 +6,7 @@ const {
 } = require('../app/controllers/verifyToken')
 
 const router = require('express').Router()
-router.put('/update-membership', userController.membershipUser)
+// router.put('/update-membership', userController.membershipUser)
 //GET ALL USERS
 router.get('/allUser', verifyTokenAndAdmin, userController.getAllUsers)
 //GET USER
