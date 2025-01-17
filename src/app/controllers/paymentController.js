@@ -10,10 +10,8 @@ const payMent = {
     const secretKey = 'K951B6PE1waDMi640xX08PD3vg6EkVlz'
     // var orderInfo = 'pay with MoMo'
     const partnerCode = 'MOMO'
-    const redirectUrl =
-      'https://webhook.site/b3088a6a-2d17-4f8d-a383-71389a6c600b'
-    const ipnUrl =
-      'https://9358-2402-800-61cf-704b-492c-384a-c922-3a1f.ngrok-free.app/payment/ipn'
+    const redirectUrl = 'http://localhost:3000/post'
+    const ipnUrl = 'https://2169-14-232-95-92.ngrok-free.app/ipn'
     var requestType = 'payWithMethod'
     // var amount = '50000'
     const orderId = partnerCode + new Date().getTime()
