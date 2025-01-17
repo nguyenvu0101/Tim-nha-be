@@ -10,7 +10,7 @@ const payMent = {
     const secretKey = 'K951B6PE1waDMi640xX08PD3vg6EkVlz'
     // var orderInfo = 'pay with MoMo'
     const partnerCode = 'MOMO'
-    const redirectUrl = 'http://localhost:3003/post'
+    const redirectUrl = 'http://localhost:3000/post'
     const ipnUrl =
       'https://49e2-2402-800-61cf-704b-e1b8-f018-d27-90a6.ngrok-free.app/payment/ipn'
     var requestType = 'payWithMethod'
