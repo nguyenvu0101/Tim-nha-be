@@ -12,7 +12,7 @@ const payMent = {
     const partnerCode = 'MOMO'
     const redirectUrl = 'http://localhost:3000/post'
     const ipnUrl =
-      'https://a94a-2402-800-61cf-704b-59e4-d345-881e-3f00.ngrok-free.app/payment/ipn'
+      'https://3e61-2001-ee0-1a3d-d002-ac35-91b9-388b-6bc5.ngrok-free.app/payment/ipn'
     var requestType = 'payWithMethod'
     // var amount = '50000'
     const orderId = partnerCode + new Date().getTime()
